@@ -4,13 +4,11 @@ sidebar_position: 2
 
 # Testing Configurations
 
-Documents are **groups of pages** connected through:
+As part of the technical evaluation criteria, features such as the creation of charts (Mermaid), folder structures, cross-reference, and new findings, are testing in order to identify the strenghts and weaknesses of documentation generator Docusaurus.
 
-- a **sidebar**
-- **previous/next navigation**
-- **versioning**
+## Creating Mermaid Diagrams
 
-## Creating a Mermaid Diagram
+Diagrams are rendered using Mermaid in a code block, following these steps:
 
 1. Enabling the oficial Mermaid theme
 
@@ -33,26 +31,122 @@ npm install @docusaurus/theme-mermaid
 
 ```
 
-Here is a simple flowchart:
+3. Generating Diagrams:
+
+Simple FlowChart:
 
 ```mermaid
-graph TD
-A-->B
-
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
 ```
 
-
-pie title Documentation Content Types
+Documentation Content Types Pie:
+```mermaid
+pie
     "Tutorials" : 40
     "API Reference" : 30
     "Examples" : 20
     "Guides" : 10
+```
 
-User->>Docusaurus: Writes documentation;
-    Docusaurus->>Mermaid: Renders diagram;
-    Mermaid-->>User: Displays beautiful chart;
+Sequence Diagram:
+```mermaid
+sequenceDiagram;
+    participant User;
+    participant Docusaurus;
+    participant Mermaid;
 
-A new document is now available at [http://localhost:3000/docs/hello](http://localhost:3000/docs/hello).
+User->Docusaurus: Writes documentation;
+    Docusaurus->Mermaid: Renders diagram;
+    Mermaid-->User: Displays beautiful chart;
+```
+
+>**Technical Considerations**
+
+To enable Mermaid functionality in Docusaurus was necessary to install Mermaid theme ```npm install --save @docusaurus/theme-mermaid```, and configure it in ```docusaurus.js``` as shown in the  [Creating Mermaid Diagrams](#creating-mermaid-diagrams) section.
+
+- Mermaid theme was simple to install.
+- According to Docusaurus version used, somethimes Mermaid requires to enable in the ```docusaurus.js``` and restart the services, sometimes not, because ```remark-mermaid``` is already installed in the configuration.
+- The ```` ```mermaid ```` syntax was critically important to tell Docusaurus how to process the code block.
+
+```md
+```mermaid
+sequenceDiagram;
+    participant User;
+    participant Docusaurus;
+    participant Mermaid;
+
+User->Docusaurus: Writes documentation;
+    Docusaurus->Mermaid: Renders diagram;
+    Mermaid-->User: Displays beautiful chart; ```
+```
+- The difficulty of configuration was related to the type of diagram desired.
+- Security issues were identified and detailes in the section [Security Concerns](#security-concerns).
+
+
+## Reorder Sections and Pages
+
+**Control Category**
+
+To manage the order of each category in the sidebar, each section has a ```_category_.json``` inside its folder, with the number of the position as is the case of the ***technical-evaluation*** folder with the position number 2, or a front matter at the top with the sidebar position as the ***intro.md***.
+
+![CategoryJsonPosition](/img/CategoryJsonPosition.png)
+
+![SideBarPosition](/img/SideBarPosition.png)
+
+- How painful is it to reorder sections later?
+
+Establish new order sections can be easy for small projects, in fact Docusaurus by default autogenerates a sidebar from the docs folder structure to provide a basic structure as baseline to just move and rename folder. The difficulty will depend on the project structure and size, for example managing a sidebar manually with hundreds of pages or the use of absolute paths instead of relatives ones could become painful.
+
+![SidebarConfig](/img/SidebarConfig.png)
+
+On the oher hand, Docusaurus support many sections and pages with the same number of order position, leaving the most recent first and the oldest last.
+
+## Link Configurations
+
+- How to link from one doc page to another? (relative paths, special syntax, auto-resolution by title?)
+
+    Linking from one documentation page to another is very flexible:
+
+    Using relative paths, syntax based ID, or auto-resolution using the filename as the doc ID:
+
+    - Link to another folder based on the doc ID: [Installation Section](installation.md)
+
+    ```md
+    [Installation Section](installation.md)
+    ```
+
+    - Link from the same folder based on the filename: [Link Configurations](#link-configurations)
+
+    ```md
+    [Link Configurations](#link-configurations)
+    ```
+
+    ![LinkSyntax](/img/LinkSyntax.png)
+
+    *By default, link syntax resolves automatically using the *filename as the doc ID*, and works even if the file was moved, as long as the *doc ID* stays the same.*
+
+    -  Using standard Markdown link syntax for external links:
+
+    [GitHub Repository](https://github.com/emilarim/hello-docs).
+
+    ```md
+    [GitHub Repository](https://github.com/emilarim/hello-docs)
+    ```
+
+- What happens when a file is renamed or moved? - do links break silently?, or does the build warn it?
+
+    When a File is renamed, an error is detected and reported by Docusaurus in the console:
+
+    ![LinkErrorDetected](/img/LinkErrorDetected.png)
+
+    The platform prevents silent features, and control that behavior by default with the command ```onBrokenLinks: 'throw``` in docusaurus.config.js
+
+    ![onBrokenLinks](/img/onBrokenLinks.png)
+
 
 ## Security Concerns
 
@@ -144,6 +238,37 @@ Running the `npm audit fix` in order to update *only compatible dependency versi
 
 3. Last resort (may include breaking changes):
 Running the `npm audit fix --force` in order to allows *major upgrades*, and modify the dependency tree *drastically*.
+
+- As a countermeasure the docusaurus website on GitHub ws updated, in case of revert changes could be neccesary.
+
+After running the `npm audit-fix --force` command, audit report registered 17 vulnerabilities (13 moderate, 4 high), which results a considerable decrease of high alerts.
+
+![fix--forceResults](/img/fix--forceResults.png)
+
+However, the website registered loading issues:
+
+![LoadingWebsiteError](/img/LoadingWebsiteError.png)
+
+Starting the development server reported errors due to `field(s) ("future.v4",)` are not recognized in docusaurus.config.js.
+
+![DocusaurusStartIssue](/img/DocusaurusStartIssue.png)
+
+Checking audit report and following the recomendations at the audit report about fix available via `npm audit fix`, it was this command running again without changes.
+
+![AuditRecommendation](/img/AuditRecommendation.png)
+
+Proceed to upgrade Docusaurus to the latest version, and as result returning to the initial state with the 19 high severity vulnerabilities.
+
+![UpgradingDocusaurus](/img/UpgradingDocusaurus.png)
+
+![ReturningInitialState](/img/ReturningInitialState.png)
+
+**SUMARY**
+
+Although the platform is able to identify and report vulnerability issues, it is unable to fix them through its mechanisms `npm audit fix` and `npm audit fix--force`, in fact the `--force` flag allows audit fix to install modules outside of the stated dependency range that generate errors to start the server.
+
+As a countermeasure to manage vulnerabilities, its necesary to inspect each dependency with vulnerabilities, list all its dependencies, check its repository for a version that includes a fix, update the dependency without altering unrelated packages, and testing the correct functioning of the website.
+
 
 
 

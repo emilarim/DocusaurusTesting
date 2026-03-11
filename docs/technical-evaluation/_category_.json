@@ -1,8 +1,8 @@
 {
   "label": "Technical Evaluation",
-  "position": 4,
+  "position": 2,
   "link": {
     "type": "generated-index",
-    "description": "10 minutes to learn how to install and configure Docusaurus."
+    "description": "Technical evaluation of the Docusaurus user experience."
   }
 }
