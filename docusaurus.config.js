@@ -31,13 +31,14 @@ const config = {
   url: 'https://emilarim.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/hello-docs/',
+  baseUrl: '/hello-docs-v3/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'emilarim', // Usually your GitHub org/user name.
-  projectName: 'hello-docs', // Usually your repo name.
+  projectName: 'hello-docs-v3', // Usually your repo name.
   trailingSlash: true, // Consistency about broken links, and unexpected redirects.
+  deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -62,7 +63,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://emilarim.github.io/hello-docs/',
+            'https://github.com/emilarim/hello-docs-v3/edit/main/',
         },
         blog:false,
         //blog: {
@@ -74,7 +75,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           //editUrl:
-           // 'https://emilarim.github.io/hello-docs/',
+           // 'https://emilarim.github.io/hello-docs-v3/',
           // Useful options to enforce blogging best practices
          // onInlineTags: 'warn',
          // onInlineAuthors: 'warn',
@@ -111,7 +112,7 @@ const config = {
           },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/emilarim/hello-docs',
+            href: 'https://github.com/emilarim/hello-docs-v3',
             label: 'GitHub',
             position: 'right',
           },
