@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Hello Docs',
-  tagline: 'My first documentation site',
+  tagline: 'Docusaurus documentation site',
   favicon: 'img/favicon.ico',
 ////////////////////////////////////////////new config
   markdown: {
@@ -31,13 +31,14 @@ const config = {
   url: 'https://emilarim.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/hello-docs/',
+  baseUrl: '/DocusaurusTesting/',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'emilarim', // Usually your GitHub org/user name.
-  projectName: 'hello-docs', // Usually your repo name.
+  projectName: 'DocusaurusTesting', // Usually your repo name.
   trailingSlash: true, // Consistency about broken links, and unexpected redirects.
+  deploymentBranch: 'gh-pages',
   onBrokenLinks: 'throw',
 
   // Even if you don't use internationalization, you can use this field to set
@@ -55,14 +56,13 @@ const config = {
       ({
         docs: {
           routeBasePath: '/', 
-          sidebarPath: './sidebars.js',
+          sidebarPath: require.resolve('./sidebars.js'),
           //sidebarPath: require.resolve('./sidebars.js'),
           //remarkPlugins: [require('remark-mermaid')],
           
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://emilarim.github.io/hello-docs/',
+          editUrl: 'https://github.com/emilarim/DocusaurusTesting/edit/main/',
         },
         blog:false,
         //blog: {
@@ -74,7 +74,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           //editUrl:
-           // 'https://emilarim.github.io/hello-docs/',
+           // 'https://emilarim.github.io/hello-docs-v3/',
           // Useful options to enforce blogging best practices
          // onInlineTags: 'warn',
          // onInlineAuthors: 'warn',
@@ -111,7 +111,7 @@ const config = {
           },
           //{to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/emilarim/hello-docs',
+            href: 'https://github.com/emilarim/DocusaurusTesting',
             label: 'GitHub',
             position: 'right',
           },
@@ -170,9 +170,7 @@ const config = {
     }),
 };
 
-export default config;
-
-//module.exports = config;
+module.exports = config;
 
 
 

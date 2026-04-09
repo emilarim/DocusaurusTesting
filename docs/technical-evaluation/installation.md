@@ -4,59 +4,120 @@ sidebar_position: 1
 
 # Installation Considerations
 
-The installation of the documentation generator can be done following the installation recommendation provided by the owners on **[docusaurus.io](https://docusaurus.io)**.
+The documentation generator can be installed by following the installation recommendations provided by its maintainers on **[docusaurus.io](https://docusaurus.io)**.
 
-- It provides the requisites to install and a guide with simple number of steps to follow in order to deploy a scaffold project website with a structure rundown.
-- It requires installation of `Node.js` to run the official scaffold commands to create a Docusaurus project, start the development server, create documentation page, build the static website, and configure Docusaurus for GitHub pages.
-- Installation of `git` requires to initialize Git, connect to GitHub, and host the Docusaurus site in it.
-- Docusaurus supports *Hot reload*, so only saving the project, the website is uploading.
+- It provides the prerequisites for installation and a guide with a simple set of steps to deploy a scaffold project website with a predefined structure.
+- It requires the installation of `Node.js` ([Node.js](https://nodejs.org/en/download/) version 20.0 or above) to run the official scaffold commands used to create a Docusaurus project, start the development server, create documentation pages, build the static website, and configure Docusaurus for GitHub Pages.
+- This installation uses the classic template, which is automatically added to the project after running the command:
+  ```bash
+  npm init docusaurus@latest my-website classic
+  ```
+- Installation of `git` is required to initialize a repository, connect it to GitHub, and host the Docusaurus site.
+- Docusaurus supports *Hot reloading*, so when the project files are saved, the website reloads automatically and displays the changes.
+- Due to administrative restrictions in the technical environment, all required dependencies for running Docusaurus were installed using the Node.js or Git Command Prompts, while Visual Studio Code was used as the code editor.
 
 ### Difficulties Encountered
 
-- Identify and be familiarized with the website features configured in the document structure´s left side panel requires time (e.i., docusaurus.config.js), in order to add, edit or delete parameters.
+- Becoming familiar with the website features configured in the document structure´s left side panel requires time (e.g., docusaurus.config.js) in order to add, edit or delete parameters.
 
-For example, using the correct folder to reference images (`static` folder) to avoid compiled issues:
+  For example, it is necessary to use the correct folder to reference images (the `static` folder) in order to avoid compilation issues:
 
-![CompiledIssues](/img/CompiledIssues.png)
+  ![CompiledIssues](/img/CompiledIssues.png)
 
-- To implement a documentation structure, it may require to configure manually a folder structure inside `docs/`, `sidebars.js` as chapters, and Markdown pages `.md`. 
+- Implementing the documentation structure may require manually configuring the folder structure inside `docs/`, defining chapters in `sidebars.js`, and creating Markdown `.md`  pages. 
 
-Basic Project Layout Deployed:
-```
-hello-docs/
-  ├── .docusaurus/
-  ├── blog/
-  ├── build/
-  └── docs/
-  ├── node_modules/
-  ├── src/
-  ├── static/
-  |
-  ├── docusaurus.config.js
-  ├── package-lock.json
-  ├── package.json
-  ├── README.md
-  └── sidebars.js
-```
+  Basic Project Layout Deployed:
+  ```
+  hello-docs/
+    ├── .docusaurus/
+    ├── blog/
+    ├── build/
+    └── docs/
+    ├── node_modules/
+    ├── src/
+    ├── static/
+    |
+    ├── docusaurus.config.js
+    ├── package-lock.json
+    ├── package.json
+    ├── README.md
+    └── sidebars.js
+  ```
 
-- Sidebar management brings problems such as keeping sidebar order consistency, linking sidebar items to correct files, and maintaining large `sidebars.js`.
+- Sidebar management can present challenges such as maintaining a consistent sidebar order, linking sidebar items to the correct files, and managing a large `sidebars.js` files.
+
 
 ## GitHub Configuration
 
-In order to host the full website converted in GitHub, it is necessary to create a repository on GitHub, configure the `docusaurus.config.js` for GitHub pages, 
+To host the full website on GitHub, it is necessary to create a repository on GitHub, and configure the `docusaurus.config.js` for GitHub pages. 
 
 ### Difficulties Encountered
-- Docusaurus requires a full URL with `https://` in the `url` field:
 
-![IncorrectSyntax](/img/IncorrectSyntax.png)
+- Authentication errors during deployment:
 
-- Wrong configuration of `url` or `baseUrl`:
+  ![InvalidAuth](/img/InvalidAuth.png)
 
-![WrongRepository](/img/WrongRepository.png)
+- As part of the mitigation actions taken to address the vulnerabilities reported in the section [Security Concerns](./testingconfig#security-concerns), acces to the GitHub portal used for website deployment was disabled, and had to be re-authenticated.
 
-- Authentication errors:
+  ![AuthErrorToGitHub](/img/AuthErrorToGitHub.png)
 
-![InvalidAuth](/img/InvalidAuth.png)
+  However, during the re-authentication process, a human error occurred: a space between the *username* and *GIT_PASS* caused the platform to retain an incorrect configuration, resulting in deployment failure when running the command: `npm run deploy`.
 
+  ![npmRunDeployFailed](/img/npmRunDeployFailed.png)
+
+  The following actions were taken, to re-establish the connection:
+
+  - Run the correct command:
+
+    `set set GIT_USER=emilarim && GIT_PASS=xxx' && npm run deploy` 
+
+  - Reinitialized existing Git repository:
+
+     ![ReinitializeGitRepo](/img/ReinitializeGitRepo.png)
+
+  - Refresh connection:
+
+    ![FreshStart](/img/FreshStart.png)
+
+  - Remote connection refused:
+
+    ![RemoteConnectionRefused](/img/RemoteConnectionRefused.png)
+
+  - As the remote connection remained unsuccessful, SSH authentication configuration was a succesful alternative:
+
+    ![SuccessfulSSHauth](/img/SuccessfulSSHauth.png)
+
+    - Checking the git remote URL:
+
+      ```bash
+      git remote -v
+      ```
+    ![gitRemote](/img/gitRemote.png)
+
+    - Clearing any lingering environment variables:
+
+      ```bash
+      # Clearing all git-related variables
+      set GIT_USER=
+      set GIT_PASS=
+      set GITHUB_TOKEN=
+      set GIT_PASSWORD=
+
+      # Forcing SSH
+      set USE_SSH=true
+
+      # Verifying it is set
+
+      echo %USE_SSH%
+      ```
+    - Running the deploy
+
+      ```bash
+      set USE_SSH=true
+      npm run deploy
+      ```
+
+      ![npmRunDeployOK](/img/npmRunDeployOK.png)
+  
 
 The website is hosted and available at [https://github.com/emilarim/hello-docs](https://github.com/emilarim/hello-docs).
