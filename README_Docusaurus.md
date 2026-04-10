@@ -27,7 +27,7 @@ To bring the Docusaurus Website configuration from GitHub to your laptop and run
 3. Clone the repository:
 
    ```bash
-   git clone https://github.com/emilarim/hello-docs-v2.git
+   git clone https://github.com/emilarim/DocusaurusTesting.git
    ```
 
 4. Check if the folder was downloaded in the proposal folder.
@@ -45,4 +45,4 @@ To bring the Docusaurus Website configuration from GitHub to your laptop and run
 
 This command starts a local development server and opens up a browser window. 
 
-`http://localhost:3000/hello-docs-v3/`
+`http://localhost:3000/DocusaurusTesting/`

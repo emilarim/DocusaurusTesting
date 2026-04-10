@@ -16,7 +16,7 @@ The documentation generator can be installed by following the installation recom
 - Docusaurus supports *Hot reloading*, so when the project files are saved, the website reloads automatically and displays the changes.
 - Due to administrative restrictions in the technical environment, all required dependencies for running Docusaurus were installed using the Node.js or Git Command Prompts, while Visual Studio Code was used as the code editor.
 
-### Difficulties Encountered
+### Difficulties Encountered During Installation
 
 - Becoming familiar with the website features configured in the document structure´s left side panel requires time (e.g., docusaurus.config.js) in order to add, edit or delete parameters.
 
@@ -46,6 +46,76 @@ The documentation generator can be installed by following the installation recom
 
 - Sidebar management can present challenges such as maintaining a consistent sidebar order, linking sidebar items to the correct files, and managing a large `sidebars.js` files.
 
+## Exploring Additional Setups
+
+### Right Sidebar
+
+The right sidebar in Docusaurus is called Table of Contents (**TOC**), and it is generated automatically from the headings in the Markdown/MDX page.
+
+The TOC is generated based on Markdown headings (**#**, **##**, **###**, etc.) or MDX headings (h2, h3, etc.). So considering the following example:
+
+```bash
+# Testing Mermaid Configurations
+
+## Testing Native Mermaids
+
+### Examples
+
+## Testing Custom Mermaid Components
+  ```
+
+Docusaurus automatically builds the table of contents for the current page as follows:
+
+```
+  Testing Mermaid Configurations
+    └─ Testing Native Mermaids
+      ├─ Examples
+    └─ Testing Custom Mermaid Components
+```
+
+The maximum supported heading level is six. For example:
+
+```md
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+####### H7 -> Out of the scope
+```
+
+![HeadingLevels](/img/HeadingLevels.png)
+
+>Therefore, only headings inside the current page appear. The TOC updates automatically (no sidebar configuration is needed), and it disappears if there are no headings.
+
+### Numbering Sections
+
+Docusaurus does not automatically number sections by default. Instead, it relies on the content structure and only applies numbering when it is explicitly defined, such as:
+
+```md
+### 1. Code Blocks
+### 2. Tabbed Code Blocks
+### 3. Collapsible Sections
+### 4. Badges and Labels
+```
+For automatic heading numbering, it is necessary to either use a plugin such as `@docusaurus/plugin-content-docs` (depending on configuration) or implement visible numbering using CSS:
+
+```css
+article h2 {
+  counter-increment: section;
+}
+
+article h2::before {
+  content: counter(section) ". ";
+}
+```
+
+:::info
+
+It is important to maintain a well-structured format to prevent numbering from becoming confusing across subsections. For practicality, this document uses manual numeric headings.
+
+:::
 
 ## GitHub Configuration
 
