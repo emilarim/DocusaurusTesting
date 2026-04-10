@@ -6,13 +6,15 @@ sidebar_position: 2
 import Mermaid from '@theme/Mermaid';
 import { useState } from 'react';
 
+# Testing Configurations
+
 <a id="mermaid-config"></a>
 
-# Testing Mermaid Configurations
+## Testing Mermaid Configurations
 
 As part of the technical evaluation criteria, features such as chart creation (Mermaid), folder structures, cross-referencing, and new findings were tested in order to identify the strenghts and weaknesses of the Docusaurus documentation generator.
 
-## Creating Mermaid Diagrams
+**Creating Mermaid Diagrams**
 
 Docusaurus offers several ways to create Mermaid charts, ranging from simple static diagrams in Markdown to fully diagrams in React/MDX.
 
@@ -121,7 +123,7 @@ Therefore, to create custom Mermaid components, it only needs to build diagrams 
 
 For example:
 
-#### Dynamic Workflow Diagram
+##### Dynamic Workflow Diagram
 
 ```MDX
 <Mermaid
@@ -160,7 +162,7 @@ For example:
    `}
 />
 
-#### Interactive Authentication Flow
+##### Interactive Authentication Flow
 
 ```MDX
 export function AuthDiagram() {
@@ -281,7 +283,7 @@ marginRight: '10px' }}>
 <AuthDiagram />
 
 
-#### Dynamic Performance Metrics
+##### Dynamic Performance Metrics
 
 ```MDX
 export function DynamicChart() {
@@ -364,7 +366,7 @@ import { useState } from 'react';
 :::
 
 
-#### Dynamic Git Workflow Visualization
+##### Dynamic Git Workflow Visualization
 
     However, trying to generate another advance diagram such as a Git Workflow, there is a *MDX compilation* error, due to Docusaurus could not parse import/export with acorn.
 

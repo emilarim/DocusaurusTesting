@@ -1,3 +1,5 @@
+# UX Evaluation Conclusions
+
 **Technical Considerations Mermaid Native**
 
 To enable Mermaid functionality in Docusaurus, it was necessary to install the Mermaid theme using ```npm install --save @docusaurus/theme-mermaid``` and configure it in ```docusaurus.js```, as shown in the  [Creating Mermaid Diagrams](./testingconfig.md#creating-mermaid-diagrams) section.
@@ -36,7 +38,7 @@ Docusaurus is very flexible in supporting link configurations through relative p
 
 It only requires referencing the path to automatically provide the available `md` files, and after typing `#`, it will display the available sections and subsections to choose from (see [Link Configurations](./testingconfig.md#link-configurations)).
 
-***Page Composition Content**
+**Page Composition Content**
 
 With regard to page composition, Docusaurus provides built-in support for MDX, allowing JSX to be written within Markdown files and rendered as React components. 
 
@@ -46,7 +48,7 @@ It also provides options to customize theme colors, automatically adapt to light
 
 Its complexity depends on the amount of scripting involved.
 
-***Content Authoring Experience**
+**Content Authoring Experience**
 
 Docusaurus also supports syntax-highlighted code blocks for a wide variety of languages such as Java, XML, YAML, Gradle, and Bash.
 
